@@ -91,6 +91,14 @@ sorted(triangles, key=lambda t: t.center_z, reverse=True)
 
 > *The math is mine — so are the bugs.*
 
+## 誰が書いたか
+
+コードは CC。3 か国語の README、2 枚の画像、コメントの英訳、カメラの初期位置は
+AI アシスタントによるものです。コメントは英語に置き換えただけで、ロジックは一行も
+変えていません（変更前後でレンダリング結果はバイト単位で同一）。
+
+詳細は [docs/provenance.md](docs/provenance.md)。
+
 ## License
 
 MIT

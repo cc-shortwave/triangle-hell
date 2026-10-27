@@ -51,57 +51,57 @@ class Camera:
         self.forward = np.array([0.0, 0.0, 1.0], dtype=np.float32)
         self.right = np.array([1.0, 0.0, 0.0], dtype=np.float32)
         self.up = np.array([0.0, 1.0, 0.0], dtype=np.float32)
-        # 世界坐标系上方向量（固定不变）
+        # world up vector (constant)
         self.world_up = np.array([0.0, 1.0, 0.0], dtype=np.float32)
 
     def update(self, phi, theta, x_movement, y_movement, z_movement, gamemode):
-        # 更新旋转角度
-        self.euler_angles[1] += phi  # yaw (偏航角)
-        self.euler_angles[0] += theta  # pitch (俯仰角)
-        # 限制俯仰角范围，避免过度旋转
+        # update rotation angles
+        self.euler_angles[1] += phi  # yaw
+        self.euler_angles[0] += theta  # pitch
+        # clamp pitch to avoid flipping at the poles
         self.euler_angles[0] = np.clip(self.euler_angles[0], -np.pi/2 + 0.01, np.pi/2 - 0.01)
 
-        # 计算旋转矩阵
+        # rebuild the rotation matrix
         rotation_x = create_rotation_x(self.euler_angles[0])
         rotation_y = create_rotation_y(self.euler_angles[1])
         rotation_z = create_rotation_z(self.euler_angles[2])
         self.rotation_matrix = np.dot(rotation_y, np.dot(rotation_x, rotation_z))
 
-        # 更新方向向量
+        # update direction vectors
         if gamemode:
-            # 游戏模式：forward始终保持水平（忽略Y分量）
+            # game mode: keep forward horizontal (drop Y)
             horizontal_forward = np.array([
                 self.rotation_matrix[0, 2],
-                0.0,  # 强制移除Y分量，保持水平
+                0.0,  # drop Y to stay horizontal
                 self.rotation_matrix[2, 2]
             ], dtype=np.float32)
             norm = np.linalg.norm(horizontal_forward)
             self.forward = horizontal_forward / norm if norm > 0 else horizontal_forward
             
-            # 游戏模式：right向量也保持水平
+            # game mode: keep right horizontal too
             horizontal_right = np.array([
                 self.rotation_matrix[0, 0],
-                0.0,  # 强制移除Y分量，保持水平
+                0.0,  # drop Y to stay horizontal
                 self.rotation_matrix[2, 0]
             ], dtype=np.float32)
             norm = np.linalg.norm(horizontal_right)
             self.right = horizontal_right / norm if norm > 0 else horizontal_right
         else:
-            # 自由模式：方向向量完全由旋转决定
+            # free mode: directions follow the rotation
             self.forward = np.dot(self.rotation_matrix, np.array([0.0, 0.0, 1.0]))
             self.right = np.dot(self.rotation_matrix, np.array([1.0, 0.0, 0.0]))
 
-        # 更新上方向量（始终由旋转决定，用于渲染等）
+        # update up vector (from rotation; used for rendering)
         self.up = np.dot(self.rotation_matrix, np.array([0.0, 1.0, 0.0]))
 
-        # 更新位置
+        # update position
         if gamemode:
-            # 游戏模式：上下移动使用世界坐标系Y轴，不受旋转影响
+            # game mode: move along world Y, ignore rotation
             self.position += (x_movement * self.right + 
-                             y_movement * self.world_up +  # 关键修改：使用世界up向量
+                             y_movement * self.world_up +  # use world up, not local up
                              z_movement * self.forward)
         else:
-            # 自由模式：上下移动使用局部坐标系up向量，受旋转影响
+            # free mode: move along local up
             self.position += (x_movement * self.right + 
                              y_movement * self.up + 
                              z_movement * self.forward)
@@ -246,14 +246,14 @@ if __name__ == "__main__":
     gamemode = False
     clock = pygame.time.Clock()
     camera = Camera()
-    # 添加旋转的立方体使效果更明显
+    # add a rotated cube so the effect is visible
     cubes = [
         Cube(+150.0, +150.0, +150.0, 300, 300, 300, 0, 0, 0, resolution=(2, 2)),
         Cube(+150.0, +150.0, -150.0, 300, 300, 300, 0, 0, 0, resolution=(2, 2)),
         Cube(-150.0, +150.0, +150.0, 300, 300, 300, 0, 0, 0, resolution=(2, 2)),
         Cube(-150.0, +150.0, -150.0, 300, 300, 300, 0, 0, 0, resolution=(2, 2)),
     ]
-    # 开启立方体自动旋转以便观察
+    # auto-rotate the cubes for inspection
     auto_rotate = True
     
     while running:
@@ -266,7 +266,7 @@ if __name__ == "__main__":
                 elif event.key == pygame.K_r:
                     auto_rotate = not auto_rotate
         
-        # 处理输入
+        # handle input
         keys = pygame.key.get_pressed()
         camera_inputs = [0, 0, 0, 0, 0]  # [phi, theta, x_movement, y_movement, z_movement]
         if keys[pygame.K_w]:
@@ -290,10 +290,10 @@ if __name__ == "__main__":
         elif keys[pygame.K_DOWN]:
             camera_inputs[1] += 0.05
             
-        # 更新相机
+        # update camera
         camera.update(*camera_inputs, gamemode)
         
-        # 渲染逻辑
+        # render
         all_triangles = []
         for cube in cubes:
             for tri in cube.triangles:
@@ -301,11 +301,11 @@ if __name__ == "__main__":
                 if tri.is_visible(): 
                     all_triangles.append(tri)
         
-        # 清空屏幕
+        # clear screen
         screen.fill((0, 0, 0))
         blend_layer.fill((0, 0, 0, 0))
         
-        # 按Z轴排序并绘制三角形（从后到前）
+        # sort by depth, draw back to front
         sorted_tris = sorted(all_triangles, key=lambda t: t.center_z, reverse=True)
         for tri in sorted_tris:
             temp_layer.fill((0, 0, 0, 0))
@@ -314,7 +314,7 @@ if __name__ == "__main__":
         
         screen.blit(blend_layer, (0, 0))
         
-        # 显示信息
+        # HUD
         fps_text = font.render(f"FPS: {int(clock.get_fps())}", True, (255, 255, 255))
         screen.blit(fps_text, (10, 10))
         
