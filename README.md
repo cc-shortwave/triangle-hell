@@ -1,0 +1,71 @@
+# triangle-hell
+
+*Hand-rolled first-person 3D renderer. ~20k triangles per rebuild, no 3D engine.*
+*The math is mine — so are the bugs.*
+
+一个初中生写的 Python 3D 渲染器。没有 3D 引擎、没有 OpenGL、没有 Three.js ——
+旋转矩阵、透视投影、近远裁剪、视锥剔除、画家算法排序，全部自己手写。
+画布用 `pygame`，矩阵运算用 `numpy`。
+
+## 它每帧做四件事
+
+1. **视图变换** —— 世界坐标减去相机位置，再乘旋转矩阵的**转置**
+2. **透视投影** —— 屏幕高度和视场角算出焦距，除以深度得到缩放
+3. **剔除** —— 近远裁剪 + 逐顶点视锥测试
+4. **排序绘制** —— 按三角形重心深度从远到近画（画家算法）；半透明用 `temp_layer` 叠加
+
+相机是 **Y-up**：`forward = R @ [0,0,1]`，`up = R @ [0,1,0]`，欧拉角顺序 `Ry · Rx · Rz`。
+
+## 跑起来
+
+```bash
+pip install numpy pygame
+python "python/first-person/第一人称视觉10.py"
+```
+
+`WASD` 移动，鼠标转视角，`G` 切换游戏模式 / 自由模式。
+
+单文件，339 行。游戏模式会把 `forward` 强制投影到水平面（人在走路），
+自由模式是 6DOF 飞行。
+
+## 几行数学
+
+**透视投影** —— 屏幕高度和视场角决定焦距：
+
+```python
+SCALE = SCREEN_HEIGHT / (2 * np.tan(np.radians(FIELD_OF_VIEW / 2)))
+x = point[0] * SCALE / depth + SCREEN_WIDTH / 2
+y = SCREEN_HEIGHT / 2 - point[1] * SCALE / depth
+```
+
+**视图变换** —— 平移到相机原点，再乘旋转矩阵的转置：
+
+```python
+rotated = camera.rotation_matrix.T @ (point - camera.position)
+```
+
+**俯仰限幅** —— 那个 `0.01` 是踩过坑留下的，不夹住就会在极点翻转：
+
+```python
+self.euler_angles[0] = np.clip(self.euler_angles[0], -np.pi/2 + 0.01, np.pi/2 - 0.01)
+```
+
+**画家算法** —— 按三角形重心深度从远到近画：
+
+```python
+sorted(triangles, key=lambda t: t.center_z, reverse=True)
+```
+
+## 已知限制
+
+这一版有两个简化：
+
+- **没有真正的近平面裁剪**：`project()` 里任何一个顶点掉出近平面，整个三角形就被丢掉，
+  而不是切开。所以贴近相机时会有三角形突然消失
+- **排序按重心深度**，不是逐像素深度。两个三角形互相穿插时顺序会错（画家算法的老毛病）
+
+> *The math is mine — so are the bugs.*
+
+## License
+
+MIT
