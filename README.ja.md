@@ -48,12 +48,6 @@ y = SCREEN_HEIGHT / 2 - point[1] * SCALE / depth
 rotated = camera.rotation_matrix.T @ (point - camera.position)
 ```
 
-**ピッチのクランプ** —— この `0.01` は傷跡です。抑えないと極でカメラが反転します：
-
-```python
-self.euler_angles[0] = np.clip(self.euler_angles[0], -np.pi/2 + 0.01, np.pi/2 - 0.01)
-```
-
 **画家のアルゴリズム** —— 重心の奥行きで奥から手前へ描く：
 
 ```python

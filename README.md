@@ -46,12 +46,6 @@ y = SCREEN_HEIGHT / 2 - point[1] * SCALE / depth
 rotated = camera.rotation_matrix.T @ (point - camera.position)
 ```
 
-**俯仰限幅** —— 那个 `0.01` 是踩过坑留下的，不夹住就会在极点翻转：
-
-```python
-self.euler_angles[0] = np.clip(self.euler_angles[0], -np.pi/2 + 0.01, np.pi/2 - 0.01)
-```
-
 **画家算法** —— 按三角形重心深度从远到近画：
 
 ```python
