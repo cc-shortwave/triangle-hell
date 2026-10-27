@@ -1,24 +1,25 @@
 # triangle-hell
 
-[中文](README.md) · [English](README.en.md) · [日本語](README.ja.md)
+[English](README.md) · [中文](README.zh.md) · [日本語](README.ja.md)
 
 *Hand-rolled first-person 3D renderer. ~20k triangles per rebuild, no 3D engine.*
 *The math is mine — so are the bugs.*
 
-一个初中生写的 Python 3D 渲染器。没有 3D 引擎、没有 OpenGL、没有 Three.js ——
-旋转矩阵、透视投影、近远裁剪、视锥剔除、画家算法排序，全部自己手写。
-画布用 `pygame`，矩阵运算用 `numpy`。
+A 3D renderer written in Python by a middle-school student. No 3D engine, no OpenGL,
+no Three.js — view transforms, perspective projection, near/far clipping, frustum
+culling and painter's-algorithm sorting are all written by hand.
+Drawing is `pygame`; the matrix math is `numpy`.
 
-## 两张图
+## Two pictures
 
-![方块世界](docs/cube.png)
+![Cube world](docs/cube.png)
 
-`python/first-person/第一人称视觉10.py` 跑出来的画面。四个 300³ 的方块拼在一起，
-中间那个十字缺口是四块正交的位置。
+What `python/first-person/第一人称视觉10.py` actually renders. Four 300³ cubes butted
+together — the cross-shaped notch in the middle is where all four meet.
 
-![花瓣](docs/petal.png)
+![Petal](docs/petal.png)
 
-`python/surface/花瓣.py`，17 行 numpy + matplotlib。四行数学：
+`python/surface/花瓣.py`, 17 lines of numpy + matplotlib. The whole shape is four lines:
 
 $$
 \begin{aligned}
@@ -29,36 +30,41 @@ y &= u
 \end{aligned}
 $$
 
-其中 $a=1,\; b=0.5,\; k=0.3$，$u\in[0,1]$，$v\in[0,2\pi]$。
+with $a=1,\; b=0.5,\; k=0.3$, $u\in[0,1]$, $v\in[0,2\pi]$.
 
-同一个形状在不同参数下会从叶子翻成花瓣。
+Nudge the parameters and the leaf turns into a petal.
 
-## 它每帧做四件事
+## Four things it does every frame
 
-1. **视图变换** —— 世界坐标减去相机位置，再乘旋转矩阵的**转置**
-2. **透视投影** —— 屏幕高度和视场角算出焦距，除以深度得到缩放
-3. **剔除** —— 近远裁剪 + 逐顶点视锥测试
-4. **排序绘制** —— 按三角形重心深度从远到近画（画家算法）；半透明用 `temp_layer` 叠加
+1. **View transform** — subtract the camera position from world coordinates, then
+   multiply by the **transpose** of the rotation matrix
+2. **Perspective projection** — screen height and field of view give the focal length;
+   divide by depth for the scale
+3. **Culling** — near/far clipping plus a per-vertex frustum test
+4. **Sort and draw** — sort triangles by centroid depth, far to near
+   (painter's algorithm); translucency is layered through `temp_layer`
 
-相机是 **Y-up**：`forward = R @ [0,0,1]`，`up = R @ [0,1,0]`，欧拉角顺序 `Ry · Rx · Rz`。
+The camera is **Y-up**: `forward = R @ [0,0,1]`, `up = R @ [0,1,0]`,
+Euler order `Ry · Rx · Rz`.
 
-## 跑起来
+## Run it
 
 ```bash
 pip install numpy pygame
 python "python/first-person/第一人称视觉10.py"
 ```
 
-（`花瓣.py` 还要 `matplotlib`：`pip install numpy matplotlib`，然后 `python "python/surface/花瓣.py"`。）
+(`花瓣.py` also needs `matplotlib`: `pip install numpy matplotlib`, then
+`python "python/surface/花瓣.py"`.)
 
-`WASD` 移动，鼠标转视角，`G` 切换游戏模式 / 自由模式。
+`WASD` to move, mouse to look around, `G` to toggle game mode / free mode.
 
-单文件，339 行。游戏模式会把 `forward` 强制投影到水平面（人在走路），
-自由模式是 6DOF 飞行。
+One file, 339 lines. Game mode projects `forward` onto the horizontal plane — you walk.
+Free mode is 6-DOF flight.
 
-## 几行数学
+## A few lines of math
 
-**透视投影** —— 屏幕高度和视场角决定焦距：
+**Perspective projection** — screen height and field of view set the focal length:
 
 ```python
 SCALE = SCREEN_HEIGHT / (2 * np.tan(np.radians(FIELD_OF_VIEW / 2)))
@@ -66,25 +72,27 @@ x = point[0] * SCALE / depth + SCREEN_WIDTH / 2
 y = SCREEN_HEIGHT / 2 - point[1] * SCALE / depth
 ```
 
-**视图变换** —— 平移到相机原点，再乘旋转矩阵的转置：
+**View transform** — move to the camera origin, then multiply by the transpose:
 
 ```python
 rotated = camera.rotation_matrix.T @ (point - camera.position)
 ```
 
-**画家算法** —— 按三角形重心深度从远到近画：
+**Painter's algorithm** — draw far to near by centroid depth:
 
 ```python
 sorted(triangles, key=lambda t: t.center_z, reverse=True)
 ```
 
-## 已知限制
+## Known limitations
 
-这一版有两个简化：
+Two simplifications in this version:
 
-- **没有真正的近平面裁剪**：`project()` 里任何一个顶点掉出近平面，整个三角形就被丢掉，
-  而不是切开。所以贴近相机时会有三角形突然消失
-- **排序按重心深度**，不是逐像素深度。两个三角形互相穿插时顺序会错（画家算法的老毛病）
+- **No real near-plane clipping.** If any vertex falls outside the near plane,
+  `project()` drops the whole triangle instead of splitting it — so triangles pop
+  out of existence when the camera gets close
+- **Sorting is by centroid depth**, not per-pixel. Interpenetrating triangles are
+  drawn in the wrong order — the old painter's-algorithm problem
 
 > *The math is mine — so are the bugs.*
 
