@@ -18,14 +18,18 @@
 
 ![花瓣](docs/petal.png)
 
-`python/surface/花瓣.py`，17 行 numpy + matplotlib。一个参数曲面：
+`python/surface/花瓣.py`，17 行 numpy + matplotlib。四行数学：
 
-```python
-r = a * (1 - u**2) * (1 + b*u)
-x = r * np.cos(v) * (1 - k*u*np.sin(v/2))
-z = r * np.sin(v) * (1 + k*u*np.cos(v))
-y = u
-```
+$$
+\begin{aligned}
+r &= a\,(1-u^2)(1+bu) \\[2pt]
+x &= r\cos v\left(1 - k\,u\sin\tfrac{v}{2}\right) \\[2pt]
+z &= r\sin v\left(1 + k\,u\cos v\right) \\[2pt]
+y &= u
+\end{aligned}
+$$
+
+其中 $a=1,\; b=0.5,\; k=0.3$，$u\in[0,1]$，$v\in[0,2\pi]$。
 
 同一个形状在不同参数下会从叶子翻成花瓣。
 
