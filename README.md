@@ -1,5 +1,7 @@
 # triangle-hell
 
+[中文](README.md) · [English](README.en.md) · [日本語](README.ja.md)
+
 *Hand-rolled first-person 3D renderer. ~20k triangles per rebuild, no 3D engine.*
 *The math is mine — so are the bugs.*
 
