@@ -15,9 +15,7 @@ Drawing is `pygame`; the matrix math is `numpy`.
 ![Cube world](docs/cube.png)
 
 What `python/first-person/第一人称视觉10.py` actually renders. Four 300³ cubes butted
-together — the cross-shaped notch in the middle is where all four meet. The camera used
-to start at `(0,0,0)`, i.e. face-first into a wall of brown; it now starts outside, so
-the shape is visible on the first frame.
+together — the cross-shaped notch in the middle is where all four meet.
 
 ![Petal](docs/petal.png)
 
