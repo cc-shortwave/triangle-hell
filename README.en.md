@@ -96,14 +96,6 @@ Two simplifications in this version:
 
 > *The math is mine — so are the bugs.*
 
-## Who wrote what
-
-The code is CC's. The packaging — the three READMEs, both images, the English comment pass,
-the camera start position — is work of an AI assistant. The comment pass changed comments
-only: before and after, the program renders byte-identical frames.
-
-Details in [docs/provenance.md](docs/provenance.md).
-
 ## License
 
 MIT

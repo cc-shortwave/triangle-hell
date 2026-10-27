@@ -88,13 +88,6 @@ sorted(triangles, key=lambda t: t.center_z, reverse=True)
 
 > *The math is mine — so are the bugs.*
 
-## 谁写了什么
-
-代码是 CC 写的。整理工作 —— README、两张图、注释英译、相机初始位置 —— 由 AI 助手完成。
-注释只是换成英文，代码逻辑一行未改（改前改后渲染出的图片逐字节相同）。
-
-明细见 [docs/provenance.md](docs/provenance.md)。
-
 ## License
 
 MIT
