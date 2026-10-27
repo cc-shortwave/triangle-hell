@@ -10,6 +10,28 @@ no Three.js — view transforms, perspective projection, near/far clipping, frus
 culling and painter's-algorithm sorting are all written by hand.
 Drawing is `pygame`; the matrix math is `numpy`.
 
+## Two pictures
+
+![Cube world](docs/cube.png)
+
+What `python/first-person/第一人称视觉10.py` actually renders. Four 300³ cubes butted
+together — the cross-shaped notch in the middle is where all four meet. The camera used
+to start at `(0,0,0)`, i.e. face-first into a wall of brown; it now starts outside, so
+the shape is visible on the first frame.
+
+![Petal](docs/petal.png)
+
+`python/surface/花瓣.py`, 17 lines of numpy + matplotlib — one parametric surface:
+
+```python
+r = a * (1 - u**2) * (1 + b*u)
+x = r * np.cos(v) * (1 - k*u*np.sin(v/2))
+z = r * np.sin(v) * (1 + k*u*np.cos(v))
+y = u
+```
+
+Nudge the parameters and the leaf turns into a petal.
+
 ## Four things it does every frame
 
 1. **View transform** — subtract the camera position from world coordinates, then
@@ -29,6 +51,9 @@ Euler order `Ry · Rx · Rz`.
 pip install numpy pygame
 python "python/first-person/第一人称视觉10.py"
 ```
+
+(`花瓣.py` also needs `matplotlib`: `pip install numpy matplotlib`, then
+`python "python/surface/花瓣.py"`.)
 
 `WASD` to move, mouse to look around, `G` to toggle game mode / free mode.
 

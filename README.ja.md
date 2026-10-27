@@ -9,6 +9,28 @@
 ビュー変換、透視投影、近遠クリップ、視錐カリング、画家のアルゴリズムによるソートまで、
 すべて手書きです。描画は `pygame`、行列演算は `numpy`。
 
+## 2 枚の画像
+
+![キューブ](docs/cube.png)
+
+`python/first-person/第一人称视觉10.py` が実際に描いた画面。300³ のキューブ 4 つを
+突き合わせたもので、中央の十字の切れ込みは 4 つが接する位置です。
+カメラの初期位置は最初の commit では `(0,0,0)` で、開始直後は壁が目の前にありました。
+いまはキューブの外側から始まるので、1 フレーム目から全体が見えます。
+
+![花びら](docs/petal.png)
+
+`python/surface/花瓣.py`、numpy + matplotlib で 17 行。パラメトリック曲面 1 枚です：
+
+```python
+r = a * (1 - u**2) * (1 + b*u)
+x = r * np.cos(v) * (1 - k*u*np.sin(v/2))
+z = r * np.sin(v) * (1 + k*u*np.cos(v))
+y = u
+```
+
+パラメータを少し動かすと、葉っぱが花びらに変わります。
+
 ## 1 フレームでやっている 4 つのこと
 
 1. **ビュー変換** —— ワールド座標からカメラ位置を引き、回転行列の**転置**を掛ける
@@ -26,6 +48,9 @@
 pip install numpy pygame
 python "python/first-person/第一人称视觉10.py"
 ```
+
+（`花瓣.py` は `matplotlib` も必要です：`pip install numpy matplotlib`、
+その後 `python "python/surface/花瓣.py"`。）
 
 `WASD` で移動、マウスで視点、`G` でゲームモード / フリーモードを切り替え。
 

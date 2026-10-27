@@ -45,9 +45,9 @@ def create_rotation_z(angle):
 
 class Camera:
     def __init__(self):
-        self.position = np.array([0.0, 0.0, 0.0], dtype=np.float32)
+        self.position = np.array([494.0, 364.0, -494.0], dtype=np.float32)
         self.rotation_matrix = np.eye(3, dtype=np.float32)
-        self.euler_angles = np.array([0.0, 0.0, 0.0], dtype=np.float32)
+        self.euler_angles = np.array([0.42, -0.78, 0.0], dtype=np.float32)
         self.forward = np.array([0.0, 0.0, 1.0], dtype=np.float32)
         self.right = np.array([1.0, 0.0, 0.0], dtype=np.float32)
         self.up = np.array([0.0, 1.0, 0.0], dtype=np.float32)

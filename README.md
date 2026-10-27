@@ -9,6 +9,27 @@
 旋转矩阵、透视投影、近远裁剪、视锥剔除、画家算法排序，全部自己手写。
 画布用 `pygame`，矩阵运算用 `numpy`。
 
+## 两张图
+
+![方块世界](docs/cube.png)
+
+`python/first-person/第一人称视觉10.py` 跑出来的画面。四个 300³ 的方块拼在一起，
+中间那个十字缺口是四块正交的位置。相机初始位置在第一个 commit 里是 `(0,0,0)` ——
+开局脸贴着方块，屏幕上只有一片褐色；现在挪到方块外面了，一眼能看见全貌。
+
+![花瓣](docs/petal.png)
+
+`python/surface/花瓣.py`，17 行 numpy + matplotlib。一个参数曲面：
+
+```python
+r = a * (1 - u**2) * (1 + b*u)
+x = r * np.cos(v) * (1 - k*u*np.sin(v/2))
+z = r * np.sin(v) * (1 + k*u*np.cos(v))
+y = u
+```
+
+同一个形状在不同参数下会从叶子翻成花瓣。
+
 ## 它每帧做四件事
 
 1. **视图变换** —— 世界坐标减去相机位置，再乘旋转矩阵的**转置**
@@ -24,6 +45,8 @@
 pip install numpy pygame
 python "python/first-person/第一人称视觉10.py"
 ```
+
+（`花瓣.py` 还要 `matplotlib`：`pip install numpy matplotlib`，然后 `python "python/surface/花瓣.py"`。）
 
 `WASD` 移动，鼠标转视角，`G` 切换游戏模式 / 自由模式。
 
