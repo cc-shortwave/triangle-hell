@@ -30,7 +30,7 @@ y &= u
 \end{aligned}
 $$
 
-with $a=1,\; b=0.5,\; k=0.3$, $u\in[0,1]$, $v\in[0,2\pi]$.
+with a = 1, b = 0.5, k = 0.3, u ∈ [0, 1], v ∈ [0, 2π].
 
 Nudge the parameters and the leaf turns into a petal.
 
