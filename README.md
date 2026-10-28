@@ -10,7 +10,7 @@ no Three.js — view transforms, perspective projection, near/far clipping, frus
 culling and painter's-algorithm sorting are all written by hand.
 Drawing is `pygame`; the matrix math is `numpy`.
 
-## Two pictures
+## What it looks like
 
 ![Cube world](docs/cube.png)
 
