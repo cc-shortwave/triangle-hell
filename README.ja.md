@@ -93,6 +93,8 @@ sorted(triangles, key=lambda t: t.center_z, reverse=True)
 
 > *The math is mine — so are the bugs.*
 
+AI アシスタントが変更した箇所：[docs/provenance.ja.md](docs/provenance.ja.md)
+
 ## License
 
 MIT

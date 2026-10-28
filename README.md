@@ -96,6 +96,8 @@ Two simplifications in this version:
 
 > *The math is mine — so are the bugs.*
 
+What the AI assistant changed: [docs/provenance.md](docs/provenance.md)
+
 ## License
 
 MIT
