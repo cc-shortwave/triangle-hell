@@ -23,9 +23,9 @@ together — the cross-shaped notch in the middle is where all four meet.
 
 $$
 \begin{aligned}
-r &= a\,(1-u^2)(1+bu) \\
-x &= r\cos v\left(1 - k\,u\sin\tfrac{v}{2}\right) \\
-z &= r\sin v\left(1 + k\,u\cos v\right) \\
+r &= a(1-u^2)(1+bu) \\
+x &= r\cos(v)\left(1 - k\cdot u\sin(v/2)\right) \\
+z &= r\sin(v)\left(1 + k\cdot u\cos(v)\right) \\
 y &= u
 \end{aligned}
 $$
