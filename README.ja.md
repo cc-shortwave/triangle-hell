@@ -22,9 +22,9 @@
 
 $$
 \begin{aligned}
-r &= a\,(1-u^2)(1+bu) \\[2pt]
-x &= r\cos v\left(1 - k\,u\sin\tfrac{v}{2}\right) \\[2pt]
-z &= r\sin v\left(1 + k\,u\cos v\right) \\[2pt]
+r &= a\,(1-u^2)(1+bu) \\
+x &= r\cos v\left(1 - k\,u\sin\tfrac{v}{2}\right) \\
+z &= r\sin v\left(1 + k\,u\cos v\right) \\
 y &= u
 \end{aligned}
 $$
