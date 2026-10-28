@@ -12,7 +12,7 @@ Drawing is `pygame`; the matrix math is `numpy`.
 
 ## What it looks like
 
-![Cube world](docs/cube.png)
+![Cube world](docs/cube-dive.gif)
 
 What `python/first-person/第一人称视觉10.py` actually renders. Four 300³ cubes butted
 together — the cross-shaped notch in the middle is where all four meet.
@@ -46,6 +46,8 @@ Nudge the parameters and the leaf turns into a petal.
 
 The camera is **Y-up**: `forward = R @ [0,0,1]`, `up = R @ [0,1,0]`,
 Euler order `Ry · Rx · Rz`.
+
+![Turntable](docs/cube-turntable.gif)
 
 ## Run it
 
