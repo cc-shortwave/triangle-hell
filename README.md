@@ -34,7 +34,7 @@ with a = 1, b = 0.5, k = 0.3, u ∈ [0, 1], v ∈ [0, 2π].
 
 Nudge the parameters and the leaf turns into a petal.
 
-## Four things it does every frame
+## What the renderer does every frame
 
 1. **View transform** — subtract the camera position from world coordinates, then
    multiply by the **transpose** of the rotation matrix
