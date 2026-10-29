@@ -99,4 +99,4 @@ AI アシスタントが変更した箇所：[docs/provenance.ja.md](docs/proven
 
 ## License
 
-MIT
+[MIT](LICENSE) © 2026 Xichun Guo

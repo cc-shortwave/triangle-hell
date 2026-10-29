@@ -102,4 +102,4 @@ What the AI assistant changed: [docs/provenance.md](docs/provenance.md)
 
 ## License
 
-MIT
+[MIT](LICENSE) © 2026 Xichun Guo

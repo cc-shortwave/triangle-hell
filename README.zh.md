@@ -94,4 +94,4 @@ AI 助手改过哪些地方：[docs/provenance.zh.md](docs/provenance.zh.md)
 
 ## License
 
-MIT
+[MIT](LICENSE) © 2026 Xichun Guo
