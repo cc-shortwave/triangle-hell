@@ -16,22 +16,8 @@
 `python/first-person/第一人称视觉10.py` 跑出来的画面。四个 300³ 的方块拼在一起，
 中间那个十字缺口是四块正交的位置。
 
-![花瓣](docs/petal.png)
-
-`python/surface/花瓣.py`，17 行 numpy + matplotlib。四行数学：
-
-$$
-\begin{aligned}
-r &= a(1-u^2)(1+bu) \\
-x &= r\cos(v)\left(1 - k\cdot u\sin(v/2)\right) \\
-z &= r\sin(v)\left(1 + k\cdot u\cos(v)\right) \\
-y &= u
-\end{aligned}
-$$
-
-其中 a = 1、b = 0.5、k = 0.3，u ∈ [0, 1]，v ∈ [0, 2π]。
-
-同一个形状在不同参数下会从叶子翻成花瓣。每一项在做什么、怎么跑：
+还有一件跟渲染器无关的小东西：`python/surface/花瓣.py`，17 行 numpy + matplotlib，
+画一张四行的参数曲面——参数一改，叶子就翻成花瓣。图片、公式和跑法都在
 [`python/surface/README.md`](python/surface/README.md)（英语）。
 
 ## 渲染器每帧做四件事

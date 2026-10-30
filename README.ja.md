@@ -16,23 +16,10 @@
 `python/first-person/第一人称视觉10.py` が実際に描いた画面。300³ のキューブ 4 つを
 突き合わせたもので、中央の十字の切れ込みは 4 つが接する位置です。
 
-![花びら](docs/petal.png)
-
-`python/surface/花瓣.py`、numpy + matplotlib で 17 行。中身はこの 4 行です：
-
-$$
-\begin{aligned}
-r &= a(1-u^2)(1+bu) \\
-x &= r\cos(v)\left(1 - k\cdot u\sin(v/2)\right) \\
-z &= r\sin(v)\left(1 + k\cdot u\cos(v)\right) \\
-y &= u
-\end{aligned}
-$$
-
-ただし a = 1、b = 0.5、k = 0.3、u ∈ [0, 1]、v ∈ [0, 2π]。
-
-パラメータを少し動かすと、葉っぱが花びらに変わります。各項の意味と実行方法：
-[`python/surface/README.md`](python/surface/README.md)（英語）。
+もう 1 つ、レンダラとは無関係な小さなもの：`python/surface/花瓣.py`。numpy + matplotlib
+の 17 行で、4 行の数式からなるパラメトリック曲面を描きます。パラメータを少し動かすと
+葉っぱが花びらに変わります。画像・数式・実行方法は
+[`python/surface/README.md`](python/surface/README.md)（英語）に。
 
 ## レンダラが 1 フレームでやっている 4 つのこと
 

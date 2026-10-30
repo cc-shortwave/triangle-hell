@@ -17,23 +17,10 @@ Drawing is `pygame`; the matrix math is `numpy`.
 What `python/first-person/第一人称视觉10.py` actually renders. Four 300³ cubes butted
 together — the cross-shaped notch in the middle is where all four meet.
 
-![Petal](docs/petal.png)
-
-`python/surface/花瓣.py`, 17 lines of numpy + matplotlib. The whole shape is four lines:
-
-$$
-\begin{aligned}
-r &= a(1-u^2)(1+bu) \\
-x &= r\cos(v)\left(1 - k\cdot u\sin(v/2)\right) \\
-z &= r\sin(v)\left(1 + k\cdot u\cos(v)\right) \\
-y &= u
-\end{aligned}
-$$
-
-with a = 1, b = 0.5, k = 0.3, u ∈ [0, 1], v ∈ [0, 2π].
-
-Nudge the parameters and the leaf turns into a petal. What each term does and how to
-run it: [`python/surface/README.md`](python/surface/README.md).
+One more piece, this one with no engine at all: `python/surface/花瓣.py`, 17 lines of
+numpy + matplotlib that draw a single four-line parametric surface — a leaf that turns
+into a petal as you nudge the parameters. Picture, formula and how to run it:
+[`python/surface/README.md`](python/surface/README.md).
 
 ## What the renderer does every frame
 
