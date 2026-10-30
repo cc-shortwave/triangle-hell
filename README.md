@@ -32,7 +32,8 @@ $$
 
 with a = 1, b = 0.5, k = 0.3, u ∈ [0, 1], v ∈ [0, 2π].
 
-Nudge the parameters and the leaf turns into a petal.
+Nudge the parameters and the leaf turns into a petal. What each term does and how to
+run it: [`python/surface/README.md`](python/surface/README.md).
 
 ## What the renderer does every frame
 
