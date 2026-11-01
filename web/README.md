@@ -5,7 +5,7 @@ Two files, no dependencies:
 - `3d-engine-core.js` — 253 lines: math, `Camera`, `Triangle`, and a WebGL renderer
 - `cube.js` — 71 lines: the `Cube` geometry, registered on `Engine3D`
 
-`index.html` is a demo page (four 300³ cubes) written by the AI assistant — not part of the renderer.
+`index.html` is a demo page (four 300³ cubes) — not part of the renderer.
 
 ```bash
 python3 -m http.server 8000    # then open http://localhost:8000
