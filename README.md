@@ -60,12 +60,13 @@ Free mode is 6-DOF flight.
   uploads one triangle list per frame
 - `web/cube.js` (71 lines) — the `Cube` geometry, which registers itself on `Engine3D`
 
-```bash
-cd web && python3 -m http.server 8000   # then open http://localhost:8000
-```
+**Just open `web/index.html` in a browser.** No Python, no server, no build step — it runs straight
+from disk, because the page loads two plain `<script>` tags (no ES modules, no `fetch`, no web
+workers) and the file protocol is enough for that.
 
-`WASD` move, `Q`/`E` down/up, arrows look, `G` toggles game mode. Opening `index.html`
-straight from disk works too; the local server is just the reliable path.
+`WASD` move, `Q`/`E` down/up, arrows look, `G` toggles game mode.
+
+Prefer a server? `cd web && python3 -m http.server 8000` → http://localhost:8000
 
 The port keeps the Python pipeline exactly: Y-up, Euler order `Ry · Rx · Rz`, near plane 0.1,
 far plane 15000, painter's algorithm sorted by centroid depth.

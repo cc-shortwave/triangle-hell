@@ -57,12 +57,13 @@ python "python/first-person/第一人称视觉10.py"
   1 回アップロードする WebGL レンダラ
 - `web/cube.js`（71 行）—— `Cube` ジオメトリ。`Engine3D` に自分で登録する
 
-```bash
-cd web && python3 -m http.server 8000   # その後 http://localhost:8000 を開く
-```
+**`web/index.html` をブラウザで開くだけ。** Python もサーバもビルドも要らない。
+ページは普通の `<script>` タグを 2 つ読むだけで（ES モジュールなし、`fetch` なし、
+Web Worker なし）、`file://` で十分動く。
 
-`WASD` 移動、`Q`/`E` 下降/上昇、矢印キーで視点、`G` でゲームモード切替。`index.html` を直接開いても
-動く。ローカルサーバは確実な方の手順というだけ。
+`WASD` 移動、`Q`/`E` 下降/上昇、矢印キーで視点、`G` でゲームモード切替。
+
+サーバ経由でも可：`cd web && python3 -m http.server 8000` → http://localhost:8000
 
 移植は Python 版のパイプラインをそのまま保っている：Y 軸が上、オイラー順 `Ry · Rx · Rz`、
 近平面 0.1、遠平面 15000、画家のアルゴリズムで重心深度順に並べる。

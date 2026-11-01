@@ -7,9 +7,8 @@ Two files, no dependencies:
 
 `index.html` is a demo page (four 300³ cubes) — not part of the renderer.
 
-```bash
-python3 -m http.server 8000    # then open http://localhost:8000
-```
+Open `index.html` in a browser — no server needed (plain `<script>` tags, no modules/workers).
+For a server instead: `python3 -m http.server 8000` → http://localhost:8000
 
 Same pipeline as `python/first-person/第一人称视觉10.py`: Y-up, Euler order `Ry · Rx · Rz`,
 near plane 0.1, far plane 15000, painter's algorithm sorted by centroid depth.

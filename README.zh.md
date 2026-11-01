@@ -52,12 +52,13 @@ python "python/first-person/第一人称视觉10.py"
 - `web/3d-engine-core.js`（253 行）—— 数学、`Camera`、`Triangle`，以及每帧上传一次三角形列表的 WebGL 渲染器
 - `web/cube.js`（71 行）—— `Cube` 几何，自己注册到 `Engine3D` 上
 
-```bash
-cd web && python3 -m http.server 8000   # 然后打开 http://localhost:8000
-```
+**直接双击 `web/index.html`** 就行 —— 不用 Python、不用起服务、不用构建。
+页面只引两个普通 `<script>` 标签（没有 ES module、没有 `fetch`、没有 Web Worker），
+所以 `file://` 协议足够跑。
 
-`WASD` 移动，`Q`/`E` 下降/上升，方向键转视角，`G` 切换游戏模式。直接双击 `index.html` 也能开，
-起本地服务只是更稳的那条路。
+`WASD` 移动，`Q`/`E` 下降/上升，方向键转视角，`G` 切换游戏模式。
+
+想走服务也行：`cd web && python3 -m http.server 8000` → http://localhost:8000
 
 移植保持了 Python 版的管线：Y 轴向上、欧拉顺序 `Ry · Rx · Rz`、近平面 0.1、远平面 15000、
 画家算法按重心深度排序。
