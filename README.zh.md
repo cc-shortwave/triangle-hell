@@ -45,6 +45,23 @@ python "python/first-person/第一人称视觉10.py"
 单文件，339 行。游戏模式会把 `forward` 强制投影到水平面（人在走路），
 自由模式是 6DOF 飞行。
 
+## Web 版
+
+`web/` 是同一个渲染器的 WebGL 移植，两个文件：
+
+- `web/3d-engine-core.js`（253 行）—— 数学、`Camera`、`Triangle`，以及每帧上传一次三角形列表的 WebGL 渲染器
+- `web/cube.js`（71 行）—— `Cube` 几何，自己注册到 `Engine3D` 上
+
+```bash
+cd web && python3 -m http.server 8000   # 然后打开 http://localhost:8000
+```
+
+`WASD` 移动，`Q`/`E` 下降/上升，方向键转视角，`G` 切换游戏模式。直接双击 `index.html` 也能开，
+起本地服务只是更稳的那条路。
+
+移植保持了 Python 版的管线：Y 轴向上、欧拉顺序 `Ry · Rx · Rz`、近平面 0.1、远平面 15000、
+画家算法按重心深度排序。
+
 ## 几行数学
 
 **透视投影** —— 屏幕高度和视场角决定焦距：

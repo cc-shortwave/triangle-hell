@@ -52,6 +52,24 @@ python "python/first-person/第一人称视觉10.py"
 One file, 339 lines. Game mode projects `forward` onto the horizontal plane — you walk.
 Free mode is 6-DOF flight.
 
+## Web version
+
+`web/` is the same renderer ported to WebGL, in two files:
+
+- `web/3d-engine-core.js` (253 lines) — math, `Camera`, `Triangle`, and a WebGL renderer that
+  uploads one triangle list per frame
+- `web/cube.js` (71 lines) — the `Cube` geometry, which registers itself on `Engine3D`
+
+```bash
+cd web && python3 -m http.server 8000   # then open http://localhost:8000
+```
+
+`WASD` move, `Q`/`E` down/up, arrows look, `G` toggles game mode. Opening `index.html`
+straight from disk works too; the local server is just the reliable path.
+
+The port keeps the Python pipeline exactly: Y-up, Euler order `Ry · Rx · Rz`, near plane 0.1,
+far plane 15000, painter's algorithm sorted by centroid depth.
+
 ## A few lines of math
 
 **Perspective projection** — screen height and field of view set the focal length:

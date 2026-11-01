@@ -44,6 +44,18 @@ Rendered with the author's code; only the presentation changed:
 **6. Commit history**
 Author identity unified to the repository owner; commit messages rewritten in English.
 
+## web/ — the WebGL port
+
+- `web/3d-engine-core.js` — 253 lines; `web/cube.js` — 71 lines. Byte-identical to the copies
+  served by the family portal (`/static/3d-engine-core.js` sha256 `909ca277…`,
+  `/static/cube.js` sha256 `2e3861b4…`).
+- Same pipeline as `第一人称视觉10.py`: Y-up camera, Euler order `Ry · Rx · Rz`, near plane 0.1,
+  far plane 15000, painter's algorithm sorted by centroid depth.
+- The JavaScript port was produced with an AI assistant; the author reviewed the result, and this
+  is what runs on the portal today.
+- `web/index.html` is a demo page written by the AI assistant (four 300³ cubes, WASD camera).
+  It is not part of the renderer.
+
 ## Not changed
 
 - `花瓣.py` is byte-identical (it has no comments and is already all English)
