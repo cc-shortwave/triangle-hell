@@ -56,7 +56,7 @@ python "python/first-person/第一人称视觉10.py"
 - `web/demo.js`（113 行）—— 演示引导：四个方块、`lookAt`、键盘处理、`requestAnimationFrame` 主循环
 
 **直接双击 `web/index.html`** 就行 —— 不用 Python、不用起服务、不用构建。
-页面只引两个普通 `<script>` 标签（没有 ES module、没有 `fetch`、没有 Web Worker），
+页面只引三个普通 `<script>` 标签（没有 ES module、没有 `fetch`、没有 Web Worker），
 所以 `file://` 协议足够跑。
 
 `WASD` 移动，`Q`/`E` 下降/上升，方向键转视角，`G` 切换游戏模式。

@@ -64,7 +64,7 @@ Free mode is 6-DOF flight.
 - `web/demo.js` (113 lines) — the demo bootstrap: four cubes, `lookAt`, key handling, the `requestAnimationFrame` loop
 
 **Just open `web/index.html` in a browser.** No Python, no server, no build step — it runs straight
-from disk, because the page loads two plain `<script>` tags (no ES modules, no `fetch`, no web
+from disk, because the page loads three plain `<script>` tags (no ES modules, no `fetch`, no web
 workers) and the file protocol is enough for that.
 
 `WASD` move, `Q`/`E` down/up, arrows look, `G` toggles game mode.

@@ -61,7 +61,7 @@ python "python/first-person/第一人称视觉10.py"
 - `web/demo.js`（113 行）—— デモの起動処理：4 つの立方体、`lookAt`、キー入力、`requestAnimationFrame` ループ
 
 **`web/index.html` をブラウザで開くだけ。** Python もサーバもビルドも要らない。
-ページは普通の `<script>` タグを 2 つ読むだけで（ES モジュールなし、`fetch` なし、
+ページは普通の `<script>` タグを 3 つ読むだけで（ES モジュールなし、`fetch` なし、
 Web Worker なし）、`file://` で十分動く。
 
 `WASD` 移動、`Q`/`E` 下降/上昇、矢印キーで視点、`G` でゲームモード切替。
