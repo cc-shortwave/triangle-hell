@@ -1,0 +1,41 @@
+name: Pages
+
+# Publishes web/ as the site root, so the demo lives at
+#   https://<owner>.github.io/triangle-hell/
+#
+# Why a workflow instead of "Deploy from a branch": branch sources can only serve
+# /(root) or /docs, and the demo is in web/. This uploads web/ as the artifact root.
+#
+# Activate once: Settings -> Pages -> Source = GitHub Actions, then push to main.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upload web/ as the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
