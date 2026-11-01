@@ -51,11 +51,14 @@ python "python/first-person/第一人称视觉10.py"
 
 ## Web 版
 
-`web/` は同じレンダラを WebGL に移植したもので、ファイルは 2 つ：
+**オンラインで試す** → https://codepen.io/editor/cc-shortwave/pen/01a197d5-d9f7-79c1-8727-2ae4ed43c82f
+
+`web/` は同じレンダラを WebGL に移植したもので、ファイルは 3 つ：
 
 - `web/3d-engine-core.js`（253 行）—— 数学、`Camera`、`Triangle`、そして毎フレーム三角形リストを
   1 回アップロードする WebGL レンダラ
 - `web/cube.js`（71 行）—— `Cube` ジオメトリ。`Engine3D` に自分で登録する
+- `web/demo.js`（113 行）—— デモの起動処理：4 つの立方体、`lookAt`、キー入力、`requestAnimationFrame` ループ
 
 **`web/index.html` をブラウザで開くだけ。** Python もサーバもビルドも要らない。
 ページは普通の `<script>` タグを 2 つ読むだけで（ES モジュールなし、`fetch` なし、

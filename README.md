@@ -54,11 +54,14 @@ Free mode is 6-DOF flight.
 
 ## Web version
 
-`web/` is the same renderer ported to WebGL, in two files:
+**Try it online** → https://codepen.io/editor/cc-shortwave/pen/01a197d5-d9f7-79c1-8727-2ae4ed43c82f
+
+`web/` is the same renderer ported to WebGL, in three files:
 
 - `web/3d-engine-core.js` (253 lines) — math, `Camera`, `Triangle`, and a WebGL renderer that
   uploads one triangle list per frame
 - `web/cube.js` (71 lines) — the `Cube` geometry, which registers itself on `Engine3D`
+- `web/demo.js` (113 lines) — the demo bootstrap: four cubes, `lookAt`, key handling, the `requestAnimationFrame` loop
 
 **Just open `web/index.html` in a browser.** No Python, no server, no build step — it runs straight
 from disk, because the page loads two plain `<script>` tags (no ES modules, no `fetch`, no web

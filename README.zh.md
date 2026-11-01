@@ -47,10 +47,13 @@ python "python/first-person/第一人称视觉10.py"
 
 ## Web 版
 
-`web/` 是同一个渲染器的 WebGL 移植，两个文件：
+**在线试玩** → https://codepen.io/editor/cc-shortwave/pen/01a197d5-d9f7-79c1-8727-2ae4ed43c82f
+
+`web/` 是同一个渲染器的 WebGL 移植，三个文件：
 
 - `web/3d-engine-core.js`（253 行）—— 数学、`Camera`、`Triangle`，以及每帧上传一次三角形列表的 WebGL 渲染器
 - `web/cube.js`（71 行）—— `Cube` 几何，自己注册到 `Engine3D` 上
+- `web/demo.js`（113 行）—— 演示引导：四个方块、`lookAt`、键盘处理、`requestAnimationFrame` 主循环
 
 **直接双击 `web/index.html`** 就行 —— 不用 Python、不用起服务、不用构建。
 页面只引两个普通 `<script>` 标签（没有 ES module、没有 `fetch`、没有 Web Worker），
